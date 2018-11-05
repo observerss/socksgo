@@ -246,7 +246,7 @@ func (sp *SocksProxy) Forward(src *net.TCPConn, dst *net.TCPConn) {
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "Socks"
+	app.Name = "Socksgo"
 	app.Usage = "a minimal socks5 server that can switch outgoing ip"
 	app.Version = "0.1"
 	app.Flags = []cli.Flag{

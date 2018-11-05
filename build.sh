@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 mkdir -p dist/
+rm dist/*
 VERSION=0.1
 GOEXEC=/usr/local/bin/go
 GOMOBILE=/Users/ob/go/pkg/gomobile
