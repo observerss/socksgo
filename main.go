@@ -21,7 +21,6 @@ type SocksProxy struct {
 	AllowNoAuth bool
 }
 
-// 本地端启动监听，接收来自本机浏览器的连接
 func (sp *SocksProxy) RunServer() error {
 	log.Println("Listening On", sp.ListenAddr.String(), "Outgoing From", sp.BindAddr.IP.String())
 	sock, err := net.ListenTCP("tcp", sp.ListenAddr)
