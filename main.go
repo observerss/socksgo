@@ -15,6 +15,7 @@ const (
 )
 
 type SocksProxy struct {
+	Sock        *net.TCPListener
 	ListenAddr  *net.TCPAddr
 	BindAddr    *net.TCPAddr
 	Username    string
@@ -26,9 +27,10 @@ func (sp *SocksProxy) RunServer() error {
 	log.Println("Listening On", sp.ListenAddr.String(), "Outgoing From", sp.BindAddr.IP.String())
 	sock, err := net.ListenTCP("tcp", sp.ListenAddr)
 	if err != nil {
+		log.Println(err)
 		return err
 	}
-
+	sp.Sock = sock
 	defer sock.Close()
 
 	for {
@@ -41,7 +43,10 @@ func (sp *SocksProxy) RunServer() error {
 		conn.SetLinger(0)
 		go sp.handleConn(conn)
 	}
-	return nil
+}
+
+func (sp *SocksProxy) StopServer() {
+	sp.Sock.Close()
 }
 
 func (sp *SocksProxy) handleConn(conn *net.TCPConn) {
