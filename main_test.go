@@ -12,7 +12,7 @@ import (
 	"golang.org/x/net/proxy"
 )
 
-func Test_Sys(t *testing.T) {
+func Test_Main(t *testing.T) {
 	// prepare server
 	listenAddr, _ := net.ResolveTCPAddr("tcp", "0.0.0.0:11080")
 	bindAddr, _ := net.ResolveTCPAddr("tcp", "0.0.0.0:0")
