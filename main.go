@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/binary"
+	"io"
 	"log"
 	"net"
 	"os"
@@ -218,29 +219,8 @@ func (sp *SocksProxy) handleConn(conn *net.TCPConn) {
 	}
 
 	// Now do the forwarding
-	go sp.Forward(conn, remoteConn)
-	sp.Forward(remoteConn, conn)
-}
-
-func (sp *SocksProxy) Forward(src *net.TCPConn, dst *net.TCPConn) {
-	buf := make([]byte, BufSize)
-	for {
-		readCount, err := src.Read(buf)
-		if err != nil {
-			break
-		}
-		if readCount > 0 {
-			writeCount, err := dst.Write(buf[0:readCount])
-			if err != nil {
-				break
-			}
-			if readCount != writeCount {
-				break
-			}
-		}
-	}
-	src.Close()
-	dst.Close()
+	go io.Copy(conn, remoteConn)
+	io.Copy(remoteConn, conn)
 }
 
 func main() {

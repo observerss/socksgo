@@ -3,6 +3,14 @@
 A minimal Socks5 Server that can switch outgoing IP
 
 
+## Dependency
+
+install [`dep`](https://golang.github.io/dep/docs/installation.html), then
+
+```bash
+dep ensure
+```
+
 ## Building
 
 ```bash
